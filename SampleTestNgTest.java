@@ -195,7 +195,7 @@ public class SampleTestNgTest extends TestNgTestBase {
             WebElement fieldLogin = webElements.get(0);
             fieldLogin.click();
             fieldLogin.clear();
-            fieldLogin.sendKeys("cheburashka@gmail.com");
+            fieldLogin.sendKeys("cheburashk@gmail.com");
 
             WebElement fieldPassword = webElements.get(1);
             fieldPassword.click();
@@ -218,7 +218,153 @@ public class SampleTestNgTest extends TestNgTestBase {
 
             Assert.assertTrue(text_in_the_registration_page.equals ("Registration"));
 
+    }
 
+    @Test
+    public void wrongValidEmailCreateAccount(){
+        WebElement createAccountLink = this.waitUntilElementIsLodedCustomTime
+                (By.xpath("//span[contains(text(),'Create Account')]"),40,"Create Account button is not found");
+        createAccountLink.click();
+
+        WebElement massage_is_there_an_account = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//span[contains(text(),'Has already account?')]"),
+                50,"Massage is there an account was not displayed");
+
+        List<WebElement> webElements = driver.findElements(
+                By.xpath("//div[@class='mat-input-infix mat-form-field-infix']/input"));
+        WebElement fieldLogin = webElements.get(0);
+        fieldLogin.click();
+        fieldLogin.clear();
+        fieldLogin.sendKeys("vasja");
+
+        WebElement fieldPassword = webElements.get(1);
+        fieldPassword.click();
+        fieldPassword.clear();
+        fieldPassword.sendKeys("123123");
+
+        WebElement fieldRepeatPassword = webElements.get(2);
+        fieldRepeatPassword.click();
+        fieldRepeatPassword.clear();
+        fieldRepeatPassword.sendKeys("123123");
+
+        WebElement wrongEmailMassage = this.waitUntilElementIsLodedCustomTime
+        (By.xpath("//*[contains(text(),'Not a valid email')]"),
+                60,"Wrong Email massage was not displayed");
+       WebElement cancelButton = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//button[@type='button']"),40, "Cancel button was not found");
+        cancelButton.click();
+        WebElement goToEventList  = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//span[contains(text(),'Go to Event list')]"),40,"Button 'Go to EventList' is not visible");
+
+
+        WebElement backgroundPageText = this.waitUntilElementIsLodedCustomTime
+                (By.xpath("//*[contains(text(),'Shabbat in the family circle')]"),
+                50,"registration window was not close");
+        System.out.println("Text in the registration page: " + backgroundPageText.getText());
+        String text_in_the_background_page = backgroundPageText.getText();
+
+        Assert.assertTrue(text_in_the_background_page.equals ("Shabbat in the family circle"));
+
+    }
+
+    @Test
+    public void wrongAlreadyRegisteredEmailCreateAccount(){
+        WebElement createAccountLink = this.waitUntilElementIsLodedCustomTime
+                (By.xpath("//span[contains(text(),'Create Account')]"),40,"Create Account button is not found");
+        createAccountLink.click();
+
+        WebElement massage_is_there_an_account = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//span[contains(text(),'Has already account?')]"),
+                50,"Massage is there an account was not displayed");
+
+        List<WebElement> webElements = driver.findElements(
+                By.xpath("//div[@class='mat-input-infix mat-form-field-infix']/input"));
+        WebElement fieldLogin = webElements.get(0);
+        fieldLogin.click();
+        fieldLogin.clear();
+        fieldLogin.sendKeys("vigla06@gmail.com");
+
+        WebElement fieldPassword = webElements.get(1);
+        fieldPassword.click();
+        fieldPassword.clear();
+        fieldPassword.sendKeys("333333");
+
+        WebElement fieldRepeatPassword = webElements.get(2);
+        fieldRepeatPassword.click();
+        fieldRepeatPassword.clear();
+        fieldRepeatPassword.sendKeys("333333");
+
+        WebElement registrationButton = this.waitUntilElementIsLodedCustomTime(By.xpath("//span[contains(text(),'Registration')]"),
+                60,"Registration button is not activity");
+        registrationButton.click();
+
+        WebElement massage_וser_exists = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//*[contains(text(),'User exists!')]"),
+                90,"Massage is there an account was not displayed");
+
+        WebElement cancelButton = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//*[contains(text(),'Cancel')]"),60, "Cancel button was not found");
+        cancelButton.click();
+        WebElement goToEventList  = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//span[contains(text(),'Go to Event list')]"),40,"Button 'Go to EventList' is not visible");
+
+
+        WebElement backgroundPageText = this.waitUntilElementIsLodedCustomTime
+                (By.xpath("//*[contains(text(),'Shabbat in the family circle')]"),
+                        50,"registration window was not close");
+        System.out.println("Text in the registration page: " + backgroundPageText.getText());
+        String text_in_the_background_page = backgroundPageText.getText();
+
+        Assert.assertTrue(text_in_the_background_page.equals ("Shabbat in the family circle"));
+
+    }
+
+
+    @Test
+    public void wrongEmptyEmailCreateAccount(){
+        WebElement createAccountLink = this.waitUntilElementIsLodedCustomTime
+                (By.xpath("//span[contains(text(),'Create Account')]"),40,"Create Account button is not found");
+        createAccountLink.click();
+
+        WebElement massage_is_there_an_account = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//span[contains(text(),'Has already account?')]"),
+                50,"Massage is there an account was not displayed");
+
+        List<WebElement> webElements = driver.findElements(
+                By.xpath("//div[@class='mat-input-infix mat-form-field-infix']/input"));
+        WebElement fieldLogin = webElements.get(0);
+        fieldLogin.click();
+        fieldLogin.clear();
+        fieldLogin.sendKeys("");
+
+        WebElement fieldPassword = webElements.get(1);
+        fieldPassword.click();
+        fieldPassword.clear();
+        fieldPassword.sendKeys("123123");
+
+        WebElement fieldRepeatPassword = webElements.get(2);
+        fieldRepeatPassword.click();
+        fieldRepeatPassword.clear();
+        fieldRepeatPassword.sendKeys("123123");
+
+        WebElement wrongEmptyEmailMassage = this.waitUntilElementIsLodedCustomTime
+                (By.xpath("//*[contains(text(),'This field is mandatory')]"),
+                        60,"Wrong Empty Email massage was not displayed");
+
+        WebElement cancelButton = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//button[@type='button']"),40, "Cancel button was not found");
+        cancelButton.click();
+        WebElement goToEventList  = this.waitUntilElementIsLodedCustomTime(
+                By.xpath("//span[contains(text(),'Go to Event list')]"),40,"Button 'Go to EventList' is not visible");
+
+
+        WebElement backgroundPageText = this.waitUntilElementIsLodedCustomTime
+                (By.xpath("//*[contains(text(),'Shabbat in the family circle')]"),
+                        50,"registration window was not close");
+        System.out.println("Text in the registration page: " + backgroundPageText.getText());
+        String text_in_the_background_page = backgroundPageText.getText();
+
+        Assert.assertTrue(text_in_the_background_page.equals ("Shabbat in the family circle"));
 
     }
 
